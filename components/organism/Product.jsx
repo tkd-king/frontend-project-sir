@@ -153,6 +153,7 @@ console.log(filteredUniforms,"haelo :)");
           </div>
         </div>
 
+<<<<<<< HEAD
         {/* Main content */}
         <div className="w-3/4">
           {/* Form section */}
@@ -185,6 +186,11 @@ console.log(filteredUniforms,"haelo :)");
             </>
           )}
         </div>
+=======
+    <FormSection />
+    <ProductCard uniform={uniforms} onEdit={handleEdit} onClick={handleCardClick} />
+      <div className="relative  container mx-auto p-4 flex">
+>>>>>>> 1064324779694473a6a1228da76f9422a7f65678
 
         {/* Image modal with object data */}
         {selectedImage && selectedUniformData && (
