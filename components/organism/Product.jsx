@@ -88,7 +88,8 @@ console.log(filteredUniforms,"haelo :)");
   return (
     <>
 
-    
+    <FormSection />
+    <ProductCard uniform={uniforms} onEdit={handleEdit} onClick={handleCardClick} />
       <div className="relative  container mx-auto p-4 flex">
 
         {/* Image modal with object data */}
