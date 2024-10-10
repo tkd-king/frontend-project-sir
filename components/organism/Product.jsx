@@ -5,23 +5,21 @@ import ProductCard from '../organism/productCard.jsx';
 import FormSection from '../organism/FormSection.jsx';
 import SkeletonCards from '../atoms/SkeletonCards.jsx';
 
-
 const Home = () => {
   const [uniforms, setUniforms] = useState([]);
-  const [filteredUniforms, setFilteredUniforms] = useState([]); // Filtered uniforms
-  const [filters, setFilters] = useState({ name: '', company: '', size: '', upperColor: '', trowserColor: '', seneiority: '', }); // Filter state
+  const [filteredUniforms, setFilteredUniforms] = useState([]);
+  const [filters, setFilters] = useState({ name: '', company: '', size: '', upperColor: '', trowserColor: '', seneiority: '', });
   const [selectedUniform, setSelectedUniform] = useState(null);
-  const [selectedUniformData, setSelectedUniformData] = useState(null); // Object data
+  const [selectedUniformData, setSelectedUniformData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
-    // Fetch uniforms when component loads
     async function fetchUniforms() {
       try {
         const data = await getUniforms();
         setUniforms(data);
-        setFilteredUniforms(data); // Set initial uniforms to filtered as well
+        setFilteredUniforms(data);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching uniforms:", error.message);
@@ -31,26 +29,21 @@ const Home = () => {
     }
     fetchUniforms();
   }, []);
- 
 
-  // Handle form submission
   const handleFormSubmit = () => {
     async function fetchUniforms() {
       const data = await getUniforms();
       setUniforms(data);
-      setFilteredUniforms(data); // Update filtered uniforms after form submission
+      setFilteredUniforms(data);
     }
     fetchUniforms();
-    setSelectedUniform(null); // Reset selected uniform
+    setSelectedUniform(null);
   };
-console.log(filteredUniforms,"haelo :)");
 
-  // Handle edit
   const handleEdit = (uniform) => {
     setSelectedUniform(uniform);
   };
 
-  // Handle filter changes
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters((prevFilters) => ({
@@ -59,103 +52,52 @@ console.log(filteredUniforms,"haelo :)");
     }));
   };
 
-  // Filter uniforms based on filters
   useEffect(() => {
     const filtered = uniforms.filter((uniform) => {
       return (
         (filters.name === '' || uniform.name.toLowerCase().includes(filters.name.toLowerCase())) &&
         (filters.company === '' || uniform.company.toLowerCase().includes(filters.company.toLowerCase())) &&
-        (filters.size === '' || uniform.size.toLowerCase().includes(filters.size.toLowerCase()))&&
-        (filters.upperColor === '' || uniform.upperColor?.includes(filters.upperColor))&& 
-        (filters.trowserColor === '' || uniform.trowserColor?.includes(filters.trowserColor))&& 
-        (filters.seneiority === '' || uniform.seneiority?.includes(filters.seneiority)) 
+        (filters.size === '' || uniform.size.toLowerCase().includes(filters.size.toLowerCase())) &&
+        (filters.upperColor === '' || uniform.upperColor?.includes(filters.upperColor)) &&
+        (filters.trowserColor === '' || uniform.trowserColor?.includes(filters.trowserColor)) &&
+        (filters.seneiority === '' || uniform.seneiority?.includes(filters.seneiority))
       );
     });
-    setFilteredUniforms(filtered); // Update filtered uniforms
+    setFilteredUniforms(filtered);
   }, [filters, uniforms]);
 
-  //image open or close handle
   const handleCardClick = (uniform) => {
     setSelectedImage(uniform.imageUrl);
-    setSelectedUniformData(uniform); // Set the object data for the clicked uniform
+    setSelectedUniformData(uniform);
   };
 
   const handleCloseImage = () => {
     setSelectedImage(null);
-    setSelectedUniformData(null); // Clear the object data
+    setSelectedUniformData(null);
   };
 
   return (
     <>
-      <div className="container mx-auto p-4 flex">
+      <div className="container mx-auto p-4 flex flex-col md:flex-row">
         {/* Sidebar Filters */}
-        <div className="w-1/4 p-4 bg-gray-200">
+        <div className="w-full md:w-1/4 p-4 bg-gray-200 mb-4 md:mb-0">
           <h2 className="font-bold mb-4">Filters</h2>
-          <div className="flex flex-col">
-            <label>Name:</label>
-            <input
-              type="text"
-              name="name"
-              value={filters.name}
-              onChange={handleFilterChange}
-              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label>Company:</label>
-            <input
-              type="text"
-              name="company"
-              value={filters.company}
-              onChange={handleFilterChange}
-              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label>Size:</label>
-            <input
-              type="text"
-              name="size"
-              value={filters.size}
-              onChange={handleFilterChange}
-              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label>Upper Color:</label>
-            <input
-              type="text"
-              name="upperColor"
-              value={filters.upperColor}
-              onChange={handleFilterChange}
-              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label>Trowser Color:</label>
-            <input
-              type="text"
-              name="trowserColor"
-              value={filters.trowserColor}
-              onChange={handleFilterChange}
-              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label>Seniority :</label>
-            <input
-              type="text"
-              name="seneiority"
-              value={filters.seneiority}
-              onChange={handleFilterChange}
-              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-            />
-          </div>
+          {Object.entries(filters).map(([key, value]) => (
+            <div className="flex flex-col mb-2" key={key}>
+              <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
+              <input
+                type="text"
+                name={key}
+                value={value}
+                onChange={handleFilterChange}
+                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black w-full"
+              />
+            </div>
+          ))}
         </div>
 
         {/* Main content */}
-        <div className="w-3/4">
-          {/* Form section */}
+        <div className="w-full md:w-3/4">
           <FormSection
             selectedUniform={selectedUniform}
             onFormSubmit={handleFormSubmit}
@@ -163,22 +105,18 @@ console.log(filteredUniforms,"haelo :)");
             id="form"
           />
 
-          {/* Loading indicator */}
           {loading ? (
             <SkeletonCards />
           ) : (
             <>
-              {/* Display total uniforms */}
               <h1 className="text-center">Total: ({filteredUniforms.length})</h1>
-
-              {/* Uniforms list */}
-              <div className="p-4 mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              <div className="p-4 mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {filteredUniforms.map((uniform) => (
                   <ProductCard
                     key={uniform._id}
                     uniform={uniform}
                     onEdit={handleEdit}
-                    onClick={() => handleCardClick(uniform)} // Pass the whole uniform object
+                    onClick={() => handleCardClick(uniform)}
                   />
                 ))}
               </div>
@@ -189,25 +127,25 @@ console.log(filteredUniforms,"haelo :)");
         {/* Image modal with object data */}
         {selectedImage && selectedUniformData && (
           <div
-            className="fixed inset-0 bg-white bg-opacity-75 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
             onClick={handleCloseImage}
           >
-            <div className="grid grid-cols-2">
+            <div className="bg-white p-4 rounded shadow-md max-w-md w-full flex flex-col md:flex-row">
               <img
                 src={selectedImage}
                 alt="Full view"
-                className="  rounded-xl"
+                className="w-full h-auto rounded-xl mb-4 md:mb-0 md:mr-4"
               />
-              <div className=" bg-gray-100 p-4 rounded shadow-md">
+              <div className="flex-1">
                 <h2 className="text-lg font-bold mb-2">
-                Company:  {selectedUniformData.company}
+                  Company: {selectedUniformData.company}
                 </h2>
-                <p className="mb-2">Discaription: {selectedUniformData.name}</p>
-                <p className="mb-2">size: {selectedUniformData.size}</p>
+                <p className="mb-2">Description: {selectedUniformData.name}</p>
+                <p className="mb-2">Size: {selectedUniformData.size}</p>
                 <p>Color: {selectedUniformData.color}</p>
                 <p>Upper Color: {selectedUniformData.upperColor}</p>
                 <p>Trowser Color: {selectedUniformData.trowserColor}</p>
-                <p>Seneiority : {selectedUniformData.seneiority}</p>
+                <p>Seniority: {selectedUniformData.seneiority}</p>
               </div>
             </div>
           </div>
