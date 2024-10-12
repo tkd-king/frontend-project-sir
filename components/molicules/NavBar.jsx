@@ -7,16 +7,22 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
+   {
+    name:"Home",
+    slug:"/",
+   },
+   {
+    name:"Form Page",
+    slug:"/form",
+   },
+   {
+    name:"contact us",
+    slug:"/contact",
+   },
+   {
+    name:"about us",
+    slug:"/about",
+   },
   ];
 
   return (
@@ -24,10 +30,10 @@ export default function App() {
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden"
+          className="sm:hidden "
         />
         <NavbarBrand>
-          <p className="font-bold text-inherit">UniCal</p>
+          <p className="font-bold text-inherit">Taekwondo<span className="text-red-500">zone</span></p>
         </NavbarBrand>
       </NavbarContent>
 
@@ -37,8 +43,8 @@ export default function App() {
             Features
           </Link>
         </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="#" aria-current="page">
+        <NavbarItem>
+          <Link href="/" aria-current="page">
             Products
           </Link>
         </NavbarItem>
@@ -50,10 +56,10 @@ export default function App() {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
+          <Link href="/login/login">Login</Link>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
+          <Button as={Link} color="primary" href="/signup/signup" variant="flat">
             Sign Up
           </Button>
         </NavbarItem>
@@ -65,11 +71,11 @@ export default function App() {
               color={
                 index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
               }
-              className="w-full"
-              href="#"
+              className="w-full "
+              href={item.slug}
               size="lg"
             >
-              {item}
+              {item.name}
             </Link>
           </NavbarMenuItem>
         ))}

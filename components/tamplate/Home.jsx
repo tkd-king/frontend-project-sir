@@ -6,7 +6,7 @@ import FooterSecion from '../organism/Footer'
 
 const Home = () => {
   return (
-    <div>
+    <div className="w-full mx-auto">
       <NavBar />
     <CardSection />
     <FooterSecion />

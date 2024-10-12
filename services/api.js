@@ -12,6 +12,15 @@ export const getUniforms = async () => {
   }
 };
 
+export const findOneUniform = async(id) => {
+  try {
+    const response = await axios.get(`${API_URL}/uniforms/find-one/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching one uniform api.js', error);
+    throw error;
+  }
+}
 export const addUniform = async (uniformData) => {
   try {
     const response = await axios.post(`${API_URL}/uniforms/post-uniform`, uniformData);

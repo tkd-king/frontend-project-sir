@@ -1,4 +1,9 @@
 import React from "react";
+import { FaFacebookF } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaInstagram } from "react-icons/fa";
+import { FaTiktok } from "react-icons/fa6";
+
 
 export default function Footer() {
   return (
@@ -7,9 +12,9 @@ export default function Footer() {
         
         {/* Column 1: About Section */}
         <div>
-          <h2 className="text-xl font-bold text-white mb-4">UniCal</h2>
+          <h2 className="text-xl font-bold text-white mb-4">Taekwondo<span className="text-red-500" >zone</span></h2>
           <p className="text-sm">
-            UniCal is a leading provider of web solutions, offering services in web design, development, and digital marketing.
+          Taekwondozone is a leading provider of web solutions, offering services in web design, development, and digital marketing.
           </p>
         </div>
         
@@ -27,19 +32,19 @@ export default function Footer() {
         
         {/* Column 3: Social Media */}
         <div>
-          <h2 className="text-xl font-bold text-white mb-4">Follow Us</h2>
-          <div className="flex space-x-6">
-            <a href="https://facebook.com" className="text-gray-300 hover:text-blue-600 transition-colors duration-300">
-              <i className="fab fa-facebook-f text-xl"></i>
+          <h2 className="text-xl font-bold text-white mb-4 ">Follow Us</h2>
+          <div className="flex space-x-6 ">
+            <a href="https://facebook.com"  className="text-white-800 hover:text-blue-600 transition-colors duration-300">
+                <FaFacebookF />
             </a>
             <a href="https://twitter.com" className="text-gray-300 hover:text-blue-400 transition-colors duration-300">
-              <i className="fab fa-twitter text-xl"></i>
+             <FaXTwitter />
             </a>
             <a href="https://instagram.com" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
-              <i className="fab fa-instagram text-xl"></i>
+             <FaInstagram />
             </a>
             <a href="https://linkedin.com" className="text-gray-300 hover:text-blue-700 transition-colors duration-300">
-              <i className="fab fa-linkedin-in text-xl"></i>
+            <FaTiktok />
             </a>
           </div>
         </div>
@@ -48,7 +53,7 @@ export default function Footer() {
       {/* Footer Bottom */}
       <div className="mt-8 border-t border-gray-700 pt-4">
         <p className="text-center text-sm">
-          © 2024 UniCal. All rights reserved.
+          © 2024 Taekwondo<span className="text-red-500" >zone</span>. All rights reserved.
         </p>
       </div>
     </footer>
