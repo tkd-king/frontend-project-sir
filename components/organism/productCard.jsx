@@ -15,7 +15,7 @@ const ProductCard = ({ uniform, onEdit, onClick }) => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-[5px] w-[200px] flex-shrink-0"
+    <div className="bg-white shadow-md rounded-lg p-[5px] w-[23%] md:w-[23%] sm:w-[23%] flex-shrink-0"
      onClick={() => onClick(uniform.imageUrl)} // Pass the image URL on click
     >
       <div className="h-48 w-full overflow-hidden cursor-pointer"> {/* Add cursor pointer */}
