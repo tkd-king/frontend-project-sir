@@ -1,8 +1,10 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { addUniform, updateUniform } from '../../services/api';
+import { useRouter } from 'next/router';
 
 const FormSection = ({ selectedUniform, onFormSubmit }) => {
+          router = useRouter()
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -71,6 +73,11 @@ const FormSection = ({ selectedUniform, onFormSubmit }) => {
   
       onFormSubmit(); // Call the onFormSubmit function after the form is successfully submitted
       setIsFormOpen(false); // Close the form after submission
+      setTimeout(() => {
+        console.log("user successfully routed");
+        
+        router.push("/");
+     }, 1000);
     } catch (error) {
       console.error('Error submitting form', error);
     }

@@ -4,7 +4,9 @@ import React from 'react';
 import Image from 'next/image'; // Import the Image component
 import { deleteUniform } from '../../services/api.js';
 
-const ProductCard = ({ uniform, onEdit, onClick }) => {
+
+
+const ProductCard = ({ uniform, onEdit, onClick, hide }) => {
   const handleDelete = async () => {
     try {
       await deleteUniform(uniform._id);
@@ -15,7 +17,7 @@ const ProductCard = ({ uniform, onEdit, onClick }) => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-[5px] w-[23%] md:w-[23%] sm:w-[23%] flex-shrink-0"
+    <div className="bg-white shadow-md rounded-lg p-[5px]  flex-shrink-0"
      onClick={() => onClick(uniform.imageUrl)} // Pass the image URL on click
     >
       <div className="h-48 w-full overflow-hidden cursor-pointer"> {/* Add cursor pointer */}
@@ -36,13 +38,13 @@ const ProductCard = ({ uniform, onEdit, onClick }) => {
       <div className="mt-2 flex space-x-2">
         <button 
           onClick={(e) => { e.stopPropagation(); onEdit(uniform); }} // Prevent click event from bubbling up
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none"
+          className={`px-4 py-2 ${hide} bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none`}
         >
           Edit
         </button>
         <button 
           onClick={(e) => { e.stopPropagation(); handleDelete(); }} // Prevent click event from bubbling up
-          className=" bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none xl:px-4 xl:py-2 xl:text-md md:text-md sm:text-sm text-[12px] md:px-[5px] md:py-[5px] sm:px-[2px] sm:py-[2px] px-[2px] py-[2px]"
+          className= {`bg-red-500 ${hide} text-white rounded-md hover:bg-red-600 focus:outline-none xl:px-4 xl:py-2 xl:text-md md:text-md sm:text-sm text-[12px] md:px-[5px] md:py-[5px] sm:px-[2px] sm:py-[2px] px-[2px] py-[2px]`}
         >
           Delete
         </button>

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import NavBar from "../../components/molicules/NavBar";
-import Footer from "../../components/organism/Footer";
+import NavBar from "../../../components/molicules/NavBar";
+import Footer from "../../../components/organism/Footer";
 import "../../app/globals.css"
 
 const Login = () => {

@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import { getUniforms } from "../../services/api.js";
-import ProductCard from "../organism/productCard.jsx";
-import SkeletonCards from "../atoms/SkeletonCards.jsx";
-import "../../app/globals.css"
-import Link from "next/link.js";
+import ProductCard from "../../components/organism/productCard.jsx";
+import SkeletonCards from "../../components/atoms/SkeletonCards.jsx";
+import "@/app/globals.css"
+import App from "@/components/molicules/NavBar.jsx";
+import Footer from "@/components/organism/Footer.jsx";
 
 const Home = () => {
   const [uniforms, setUniforms] = useState([]);
@@ -87,6 +88,7 @@ const Home = () => {
 
   return (
     <>
+    <App />
       <div className="container p-4 flex flex-col md:flex-row ">
         {/* Button to toggle sidebar on mobile */}
         <button
@@ -181,15 +183,17 @@ const Home = () => {
               {/* Uniforms list */}
               <div className="grid grid-cols-4 gap-2">
                 {filteredUniforms.map((uniform) => (
-                  <Link key={uniform._id} href={`/product/${uniform._id}`}>
-                    <ProductCard uniform={uniform} onEdit={handleEdit} hide={"hidden"} />
-                  </Link>
+                  <div key={uniform._id}>
+                    <ProductCard uniform={uniform} onEdit={handleEdit} hide={"block"} />
+                  </div>
                 ))}
               </div>
             </>
           )}
         </div>
       </div>
+  <Footer />
+
     </>
   );
 };
