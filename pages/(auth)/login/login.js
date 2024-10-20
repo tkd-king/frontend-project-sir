@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import NavBar from "../../../components/molicules/NavBar";
-import Footer from "../../../components/organism/Footer";
-import "../../app/globals.css"
+import NavBar from "@/components/molicules/NavBar.jsx";
+import Footer from "@/components/organism/Footer.jsx";
+import "@/app/globals.css"
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
