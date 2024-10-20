@@ -90,7 +90,7 @@ const Home = () => {
     <>
     <App />
       <div className="container p-4 flex flex-col md:flex-row ">
-        {/* Button to toggle sidebar on mobile */}
+        {/* Button to toggle sidebar on mobile helo */}
         <button
           onClick={toggleSidebar}
           className="md:hidden bg-blue-500 text-white p-2 rounded mb-4"
