@@ -43,17 +43,29 @@ const router = useRouter();
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.name) newErrors.name = "Uniform Name is required";
-    if (!formData.company) newErrors.company = "Company Name is required";
-    if (!formData.size) newErrors.size = "Size is required";
-    if (!formData.category) newErrors.category = "Category is required";
-    if (!formData.upperColor) newErrors.upperColor = "Upper color is required";
-    if (!formData.trowserColor)
-      newErrors.trowserColor = "Trowser color is required";
-    if (!formData.seneiority)
-      newErrors.seneiority = "Seniority is required";
-    if (!formData.style) newErrors.style = "Style is required";
-    if (!formData.imageUrl) newErrors.imageUrl = "Image is required";
+    //all fields bad mn chage krnay h lazmy ok :)
+    // if (!formData.name) newErrors.name = "Uniform Name is required";
+    // if (!formData.company) newErrors.company = "Company Name is required";
+    // if (!formData.size) newErrors.size = "Size is required";
+    // if (!formData.category) newErrors.category = "Category is required";
+    // if (!formData.upperColor) newErrors.upperColor = "Upper color is required";
+    // if (!formData.trowserColor)
+    //   newErrors.trowserColor = "Trowser color is required";
+    // if (!formData.seneiority)
+    //   newErrors.seneiority = "Seniority is required";
+    // if (!formData.style) newErrors.style = "Style is required";
+    // if (!formData.imageUrl) newErrors.imageUrl = "Image is required";
+    // if (!formData.name) newErrors.name = "Discover the perfect blend of style and quality with our [Product Name]. Designed to bring both elegance and durability into your daily life, this [product type] is crafted from high-quality materials to ensure long-lasting performance. Its sleek design makes it a versatile addition to any space, while the attention to detail ensures a premium feel. Whether for everyday use or special occasions, this product offers the ideal balance of functionality and aesthetic appeal, making it a must-have for those who appreciate both comfort and style.";
+    // if (!formData.company) newErrors.company = "Company Name is required";
+    // if (!formData.size) newErrors.size = "Size is required";
+    // if (!formData.category) newErrors.category = "Category is required";
+    // if (!formData.upperColor) newErrors.upperColor = "White";
+    // if (!formData.trowserColor)
+    //   newErrors.trowserColor = "White";
+    // if (!formData.seneiority)
+    //   newErrors.seneiority = "Poom";
+    // if (!formData.style) newErrors.style = "Full Slieve";
+    // if (!formData.imageUrl) newErrors.imageUrl = "Image is required";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -112,7 +124,7 @@ const router = useRouter();
       <NavBar />
   
       {popupMessage ? (<h1
-  className={`w-[400px] ml-[470px] my-[30px] bg-green-500 text-white flex items-center justify-center   py-2 px-4 rounded-lg shadow-lg transition duration-300 ${
+  className={`w-[400px] ml-[470px] my-[300px] bg-green-500 text-white flex items-center justify-center   py-2 px-4 rounded-lg shadow-lg transition duration-300 ${
     popupMessage ? "opacity-100" : "opacity-0"
   }`}
 >

@@ -33,7 +33,7 @@ const ProductCard = ({ uniform, onEdit, onClick, hide }) => {
       </div>
       
       <h2 className=" font-semibold xl:mt-4 xl:text-xl md:mt-[2px] md:text-md">{uniform.company}</h2>
-      <p className="text-gray-600">Size: {uniform.size}</p>
+      <p className="text-gray-600">Size: {uniform.size}cm</p>
       <p className="text-gray-600">Category: {uniform.category}</p>
       <div className="mt-2 flex space-x-2">
         <button 

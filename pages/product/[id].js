@@ -1,8 +1,8 @@
 // pages/product/[id].js
-import NavBar from "@/components/molicules/NavBar.jsx"
+import NavBar from "@/components/molicules/NavBar.jsx";
 import Footer from "@/components/organism/Footer";
 import { findOneUniform } from "@/services/api";
-import "../../app/globals.css"
+import "../../app/globals.css";
 export default function ProductDetail({ product }) {
   return (
     <div>
@@ -11,19 +11,36 @@ export default function ProductDetail({ product }) {
         <div className="flex flex-col lg:flex-row items-start">
           {/* Product Image */}
           <div className="w-full lg:w-1/2 mb-6 lg:mb-0">
-            <img src={product.imageUrl} alt={product.name} className="w-full rounded-lg shadow-lg" />
+            <img
+              src={product.imageUrl}
+              alt={product.name}
+              className="w-full rounded-lg shadow-lg"
+            />
           </div>
 
           {/* Product Information */}
           <div className="w-full lg:w-1/2 lg:pl-10">
-            <h2 className="text-4xl font-bold mb-4">{product.name}</h2>
-            <p className="text-gray-600 text-xl mb-4">Company: {product.company}</p>
-            <p className="text-gray-600 text-xl mb-4">Size: {product.size}</p>
-            <p className="text-gray-600 text-xl mb-4">Category: {product.category}</p>
-            <p className="text-gray-600 text-xl mb-4">Upper Color: {product.upperColor}</p>
-            <p className="text-gray-600 text-xl mb-4">Trouser Color: {product.trowserColor}</p>
-            <p className="text-gray-600 text-xl mb-4">Seniority: {product.seneiority}</p>
+            <h2 className="text-4xl font-bold mb-4">
+              Company: {product.company}
+            </h2>
+            <p className="text-gray-600 text-xl mb-4">Size: {product.size}cm</p>
+            <p className="text-gray-600 text-xl mb-4">
+              Category: {product.category}
+            </p>
+            <p className="text-gray-600 text-xl mb-4">
+              Upper Color: {product.upperColor}
+            </p>
+            <p className="text-gray-600 text-xl mb-4">
+              Trouser Color: {product.trowserColor}
+            </p>
+            <p className="text-gray-600 text-xl mb-4">
+              Seniority: {product.seneiority}
+            </p>
             <p className="text-gray-600 text-xl mb-4">Style: {product.style}</p>
+            <h2 className="text-2xl font-semibold mb-2 text-gray-800">
+              Description:
+            </h2>
+            <p className="text-gray-600 text-lg mb-4">{product.name}</p>
 
             {/* Buttons (e.g., Add to Cart, Buy Now) */}
             <button className="bg-blue-600 text-white py-2 px-6 rounded-lg mr-4">
@@ -56,7 +73,7 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    console.error('Error fetching product:', error);
+    console.error("Error fetching product:", error);
     return {
       notFound: true,
     };

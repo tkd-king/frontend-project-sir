@@ -42,7 +42,6 @@ const Home = () => {
 
   // Handle edit
   const handleEdit = (uniform) => {
-    e.preventDefault();
     setSelectedUniform(uniform);
   };
 
