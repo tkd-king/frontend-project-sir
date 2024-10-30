@@ -18,6 +18,7 @@ const router = useRouter();
     trowserColor: "",
     seneiority: "",
     style: "",
+    uniformNumberFormat: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -37,6 +38,7 @@ const router = useRouter();
         trowserColor: selectedUniform.trowserColor || "White",
         seneiority: selectedUniform.seneiority || "Poom",
         style: selectedUniform.style || "Full-Sleeve",
+        uniformNumberFormat: selectedUniform.uniformNumberFormat || "",
       });
     }
   }, [selectedUniform]);
@@ -107,6 +109,7 @@ const router = useRouter();
         trowserColor: "",
         seneiority: "",
         style: "",
+        uniformNumberFormat:""
       });
       setErrors({});
       setTimeout(() => {
@@ -122,7 +125,6 @@ const router = useRouter();
   return (
     <>
       <NavBar />
-  
       {popupMessage ? (<h1
   className={`w-[400px] ml-[470px] my-[300px] bg-green-500 text-white flex items-center justify-center   py-2 px-4 rounded-lg shadow-lg transition duration-300 ${
     popupMessage ? "opacity-100" : "opacity-0"
@@ -138,6 +140,7 @@ const router = useRouter();
             <div>
               <label className="block mb-1 text-sm">Uniform Name</label>
               <input
+                required
                 className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
                 type="text"
                 name="name"
@@ -147,7 +150,19 @@ const router = useRouter();
               />
               {errors.name && <p className="text-red-500">{errors.name}</p>}
             </div>
-
+            <div>
+              <label className="block mb-1 text-sm">Number</label>
+              <input
+                className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+                type="number"
+                name="uniformNumberFormat"
+                placeholder="Discription..."
+                value={formData.uniformNumberFormat}
+                onChange={handleChange}
+                required
+              />
+              {errors.uniformNumberFormat && <p className="text-red-500">{errors.uniformNumberFormat}</p>}
+            </div>
             <div>
               <label className="block mb-1 text-sm">Company Name</label>
               <input
@@ -157,6 +172,7 @@ const router = useRouter();
                 name="company"
                 value={formData.company}
                 onChange={handleChange}
+                required
               />
               {errors.company && (
                 <p className="text-red-500">{errors.company}</p>
@@ -172,6 +188,7 @@ const router = useRouter();
                 name="size"
                 value={formData.size}
                 onChange={handleChange}
+                required
               />
               {errors.size && <p className="text-red-500">{errors.size}</p>}
             </div>
@@ -185,6 +202,7 @@ const router = useRouter();
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
+                required
               />
               {errors.category && (
                 <p className="text-red-500">{errors.category}</p>
@@ -200,6 +218,7 @@ const router = useRouter();
                 name="upperColor"
                 value={formData.upperColor}
                 onChange={handleChange}
+                required
               />
               {errors.upperColor && (
                 <p className="text-red-500">{errors.upperColor}</p>
@@ -215,6 +234,7 @@ const router = useRouter();
                 name="trowserColor"
                 value={formData.trowserColor}
                 onChange={handleChange}
+                required
               />
               {errors.trowserColor && (
                 <p className="text-red-500">{errors.trowserColor}</p>
@@ -230,6 +250,7 @@ const router = useRouter();
                 name="seneiority"
                 value={formData.seneiority}
                 onChange={handleChange}
+                required
               />
               {errors.seneiority && (
                 <p className="text-red-500">{errors.seneiority}</p>
@@ -245,6 +266,7 @@ const router = useRouter();
                 name="style"
                 value={formData.style}
                 onChange={handleChange}
+                required
               />
               {errors.style && <p className="text-red-500">{errors.style}</p>}
             </div>
