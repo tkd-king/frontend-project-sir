@@ -4,6 +4,8 @@ import Footer from "@/components/organism/Footer";
 import { findOneUniform } from "@/services/api";
 import "../../app/globals.css";
 export default function ProductDetail({ product }) {
+  console.log(product,":)");
+  
   return (
     <div>
       <NavBar />

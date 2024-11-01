@@ -10,7 +10,6 @@ const Home = () => {
   const [uniforms, setUniforms] = useState([]);
   const [filteredUniforms, setFilteredUniforms] = useState([]); // Filtered uniforms
   const [filters, setFilters] = useState({
-    name: "",
     company: "",
     size: "",
     upperColor: "",
@@ -58,8 +57,6 @@ const Home = () => {
   useEffect(() => {
     const filtered = uniforms.filter((uniform) => {
       return (
-        (filters.name === "" ||
-          uniform.name.toLowerCase().includes(filters.name.toLowerCase())) &&
         (filters.company === "" ||
           uniform.company
             .toLowerCase()
@@ -104,16 +101,6 @@ const Home = () => {
           } xl:block lg:block `}
         >
           <h2 className="font-bold mb-4">Filters</h2>
-          <div className="flex flex-col">
-            <label>Name:</label>
-            <input
-              type="text"
-              name="name"
-              value={filters.name}
-              onChange={handleFilterChange}
-              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-            />
-          </div>
           <div className="flex flex-col">
             <label>Company:</label>
             <input

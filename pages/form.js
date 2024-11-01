@@ -4,12 +4,11 @@ import { addUniform, updateUniform } from "../services/api";
 import "../app/globals.css";
 import NavBar from "../components/molicules/NavBar";
 import Footer from "@/components/organism/Footer";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 
 const FormSection = ({ selectedUniform }) => {
-const router = useRouter();
+// const router = useRouter(); route krnay k leay only nextjs  mn 
   const [formData, setFormData] = useState({
-    name: "",
     company: "",
     size: "",
     category: "",
@@ -19,15 +18,16 @@ const router = useRouter();
     seneiority: "",
     style: "",
     uniformNumberFormat: "",
+    neckStyle: "",
+    poomseOrNot:"",
   });
-
+  const [submiting, setSubmiting] = useState(false)
   const [errors, setErrors] = useState({});
   const [popupMessage, setPopupMessage] = useState(null);
 
   useEffect(() => {
     if (selectedUniform) {
       setFormData({
-        name: selectedUniform.name || "",
         company: selectedUniform.company || "",
         size: selectedUniform.size || "",
         category: selectedUniform.category || "A",
@@ -39,6 +39,8 @@ const router = useRouter();
         seneiority: selectedUniform.seneiority || "Poom",
         style: selectedUniform.style || "Full-Sleeve",
         uniformNumberFormat: selectedUniform.uniformNumberFormat || "",
+        neckStyle: selectedUniform.neckStyle || "",
+        poomseOrNot: selectedUniform.poomseOrNot || "",
       });
     }
   }, [selectedUniform]);
@@ -85,6 +87,7 @@ const router = useRouter();
     if (!validate()) return; // Return early if validation fails
 
     try {
+      setSubmiting(true);
       const formDataObj = new FormData();
       Object.keys(formData).forEach((key) => {
         formDataObj.append(key, formData[key]);
@@ -96,11 +99,10 @@ const router = useRouter();
         await addUniform(formDataObj);
       }
 
-      setPopupMessage("Form submitted successfully!");
-      setTimeout(() => setPopupMessage(null), 2000); // Success popup for 2 seconds
+      setPopupMessage("Uniform submitted successfully!");
+      setTimeout(() => setPopupMessage(null), 500); // Success popup for 2 seconds
 
       setFormData({
-        name: "",
         company: "",
         size: "",
         category: "",
@@ -109,13 +111,17 @@ const router = useRouter();
         trowserColor: "",
         seneiority: "",
         style: "",
-        uniformNumberFormat:""
+        uniformNumberFormat:"",
+        neckStyle:"",
+        poomseOrNot:"",
       });
       setErrors({});
-      setTimeout(() => {
-       router.push("/"); // Redirect to uniforms page after form submission
-      }, 1500);
+      setSubmiting(false)
+      // setTimeout(() => {
+      //  router.push("/"); // Redirect to uniforms page after form submission
+      // }, 1500);
     } catch (error) {
+      setSubmiting(true);
       setPopupMessage("Error submitting form!");
       setTimeout(() => setPopupMessage(null), 2000); // Failure popup for 2 seconds
       console.error("Error submitting form", error);
@@ -133,30 +139,17 @@ const router = useRouter();
   {popupMessage}
 </h1>
 ) : (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <div className="flex justify-center items-center py-[50px] min-h-screen bg-gray-700">
         <div className="w-full max-w-md p-4 bg-white shadow-lg rounded-lg">
           <h2 className="text-2xl text-center mb-6">Uniform Form</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block mb-1 text-sm">Uniform Name</label>
-              <input
-                required
-                className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
-                type="text"
-                name="name"
-                placeholder="Discription..."
-                value={formData.name}
-                onChange={handleChange}
-              />
-              {errors.name && <p className="text-red-500">{errors.name}</p>}
-            </div>
             <div>
               <label className="block mb-1 text-sm">Number</label>
               <input
                 className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
                 type="number"
                 name="uniformNumberFormat"
-                placeholder="Discription..."
+                placeholder="Number..."
                 value={formData.uniformNumberFormat}
                 onChange={handleChange}
                 required
@@ -242,7 +235,7 @@ const router = useRouter();
             </div>
 
             <div>
-              <label className="block mb-1 text-sm">Seniority</label>
+              <label className="block mb-1 text-sm">Collar Color</label>
               <input
                 className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
                 type="text"
@@ -270,6 +263,31 @@ const router = useRouter();
               />
               {errors.style && <p className="text-red-500">{errors.style}</p>}
             </div>
+            <div>
+              <label className="block mb-1 text-sm">Neck Style</label>
+              <input
+                className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+                type="text"
+                placeholder="Add NeckStyle..."
+                name="neckStyle"
+                value={formData.neckStyle}                
+                onChange={handleChange}
+                required
+              />
+              {errors.style && <p className="text-red-500">{errors.style}</p>}
+            </div>
+            <div> 
+              <label className="block mb-1 text-sm">Poomse or not</label>
+              <input
+                className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+                type="text"
+                placeholder="ENTER poomseOrNot..."
+                name="poomseOrNot"
+                value={formData.poomseOrNot}
+                onChange={handleChange}
+              />
+              {errors.style && <p className="text-red-500">{errors.style}</p>}
+            </div>
 
             <div>
               <label className="block mb-1 text-sm">Image</label>
@@ -283,13 +301,23 @@ const router = useRouter();
                 <p className="text-red-500">{errors.imageUrl}</p>
               )}
             </div>
+            
 
+           {submiting ? (
             <button
-              type="submit"
-              className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
-              {selectedUniform ? "Update Uniform" : "Add Uniform"}
-            </button>
+            className="w-full p-2 bg-blue-500/80 text-white cursor-progress rounded hover:bg-blue-600/80"
+          >
+            Submiting...
+          </button>
+         ) :  (
+             <button
+             type="submit"
+             className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+           >
+             {selectedUniform ? "Update Uniform" : "Add Uniform"}
+           </button>
+           )}
+         
          
 
           </form>

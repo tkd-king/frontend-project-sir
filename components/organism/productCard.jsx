@@ -15,19 +15,20 @@ const ProductCard = ({ uniform, onEdit, onClick, hide }) => {
       console.error('Error deleting uniform', error);
     }
   };
+  const handleClick = () => onClick(uniform.imageUrl);
 
   return (
     <div className="bg-white shadow-md rounded-lg p-[5px]  flex-shrink-0"
-     onClick={() => onClick(uniform.imageUrl)} // Pass the image URL on click
+     onClick={handleClick} // Pass the image URL on click
     >
-      <div className="h-48 w-full overflow-hidden cursor-pointer"> {/* Add cursor pointer */}
+      <div className="h-48 w-full overflow-hidden cursor-pointer "> {/* Add cursor pointer */}
         <Image 
           src={uniform.imageUrl} 
           alt={uniform.company} 
           layout="responsive" // Use layout responsive
           width={500} // Set width for the image
           height={200} // Set height for the image
-          className="rounded-md object-cover"
+          className="rounded-md object-cover scale-100 hover:scale-105 transition-all"
           priority={false} // Use false for lazy loading, true if it's crucial
         />
       </div>
@@ -35,6 +36,7 @@ const ProductCard = ({ uniform, onEdit, onClick, hide }) => {
       <h2 className=" font-semibold xl:mt-4 xl:text-xl md:mt-[2px] md:text-md">{uniform.company}</h2>
       <p className="text-gray-600">Size: {uniform.size}cm</p>
       <p className="text-gray-600">Category: {uniform.category}</p>
+      <p className="text-gray-600">Product no. {uniform.uniformNumberFormat}</p>
       <div className="mt-2 flex space-x-2">
         <button 
           onClick={(e) => { e.stopPropagation(); onEdit(uniform); }} // Prevent click event from bubbling up
