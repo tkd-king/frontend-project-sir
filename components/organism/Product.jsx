@@ -15,6 +15,8 @@ const Home = () => {
     upperColor: "",
     trowserColor: "",
     seneiority: "",
+    category:"",
+    uniformNumberFormat:"",
   }); // Filter state
   const [loading, setLoading] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for sidebar visibility
@@ -68,7 +70,11 @@ const Home = () => {
         (filters.trowserColor === "" ||
           uniform.trowserColor?.includes(filters.trowserColor)) &&
         (filters.seneiority === "" ||
-          uniform.seneiority?.includes(filters.seneiority))
+          uniform.seneiority?.includes(filters.seneiority)) &&
+          (filters.uniformNumberFormat === "" ||
+            uniform.uniformNumberFormat?.includes(filters.uniformNumberFormat)) &&
+          (filters.category === "" ||
+            uniform.category?.includes(filters.category))
       );
     });
     setFilteredUniforms(filtered); // Update filtered uniforms
@@ -122,6 +128,16 @@ const Home = () => {
             />
           </div>
           <div className="flex flex-col">
+            <label htmlFor="uniformNumberFormat">Product No.</label>
+            <input
+              type="text"
+              name="uniformNumberFormat"
+              value={filters.uniformNumberFormat}
+              onChange={handleFilterChange}
+              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+            />
+          </div>
+          <div className="flex flex-col">
             <label>Upper Color:</label>
             <input
               type="text"
@@ -137,6 +153,16 @@ const Home = () => {
               type="text"
               name="trowserColor"
               value={filters.trowserColor}
+              onChange={handleFilterChange}
+              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label>category:</label>
+            <input
+              type="text"
+              name="category"
+              value={filters.category}
               onChange={handleFilterChange}
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />

@@ -11,12 +11,13 @@ const Home = () => {
   const [uniforms, setUniforms] = useState([]);
   const [filteredUniforms, setFilteredUniforms] = useState([]); // Filtered uniforms
   const [filters, setFilters] = useState({
-    name: "",
     company: "",
     size: "",
     upperColor: "",
     trowserColor: "",
     seneiority: "",
+    category:"",
+    uniformNumberFormat:"",
   }); // Filter state
   const [loading, setLoading] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for sidebar visibility
@@ -28,7 +29,9 @@ const Home = () => {
         const data = await getUniforms();
         setUniforms(data);
         setFilteredUniforms(data); // Set initial uniforms to filtered as well
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
       } catch (error) {
         console.error("Error fetching uniforms:", error.message);
       } finally {
@@ -57,26 +60,44 @@ const Home = () => {
   // Filter uniforms based on filters
   useEffect(() => {
     const filtered = uniforms.filter((uniform) => {
+      const matchCompany =
+        filters.company === "" ||
+        uniform.company.includes(filters.company);
+  
+      const matchSize =
+        filters.size === "" ||
+        uniform.size.includes(filters.size);
+  
+      const matchUpperColor =
+        filters.upperColor === "" || uniform.upperColor?.includes(filters.upperColor);
+  
+      const matchTrowserColor =
+        filters.trowserColor === "" || uniform.trowserColor?.includes(filters.trowserColor);
+  
+      const matchSeneiority =
+        filters.seneiority === "" || uniform.seneiority?.includes(filters.seneiority);
+  
+      const matchUniformNumberFormat =
+        filters.uniformNumberFormat === "" ||
+        uniform.uniformNumberFormat?.includes(filters.uniformNumberFormat);
+  
+      const matchCategory =
+        filters.category === "" || uniform.category?.includes(filters.category);
+  
       return (
-        (filters.name === "" ||
-          uniform.name.toLowerCase().includes(filters.name.toLowerCase())) &&
-        (filters.company === "" ||
-          uniform.company
-            .toLowerCase()
-            .includes(filters.company.toLowerCase())) &&
-        (filters.size === "" ||
-          uniform.size.toLowerCase().includes(filters.size.toLowerCase())) &&
-        (filters.upperColor === "" ||
-          uniform.upperColor?.includes(filters.upperColor)) &&
-        (filters.trowserColor === "" ||
-          uniform.trowserColor?.includes(filters.trowserColor)) &&
-        (filters.seneiority === "" ||
-          uniform.seneiority?.includes(filters.seneiority))
+        matchCompany &&
+        matchSize &&
+        matchUpperColor &&
+        matchTrowserColor &&
+        matchSeneiority &&
+        matchUniformNumberFormat &&
+        matchCategory
       );
     });
+  
     setFilteredUniforms(filtered); // Update filtered uniforms
   }, [filters, uniforms]);
-
+  
  
 
  
@@ -97,24 +118,14 @@ const Home = () => {
           {isSidebarOpen ? "Hide Filters" : "Show Filters"}
         </button>
 
-        {/* Sidebar Filters */}
-        <div
+       {/* Sidebar Filters */}
+       <div
           className={`w-full md:w-1/4 p-4 bg-gray-200 transition-transform duration-300
              ${
             isSidebarOpen ? "block" : "hidden"
           } xl:block lg:block `}
         >
           <h2 className="font-bold mb-4">Filters</h2>
-          <div className="flex flex-col">
-            <label>Name:</label>
-            <input
-              type="text"
-              name="name"
-              value={filters.name}
-              onChange={handleFilterChange}
-              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-            />
-          </div>
           <div className="flex flex-col">
             <label>Company:</label>
             <input
@@ -131,6 +142,16 @@ const Home = () => {
               type="text"
               name="size"
               value={filters.size}
+              onChange={handleFilterChange}
+              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="uniformNumberFormat">Product No.</label>
+            <input
+              type="text"
+              name="uniformNumberFormat"
+              value={filters.uniformNumberFormat}
               onChange={handleFilterChange}
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />
@@ -156,6 +177,16 @@ const Home = () => {
             />
           </div>
           <div className="flex flex-col">
+            <label>category:</label>
+            <input
+              type="text"
+              name="category"
+              value={filters.category}
+              onChange={handleFilterChange}
+              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+            />
+          </div>
+          <div className="flex flex-col">
             <label>Seniority:</label>
             <input
               type="text"
@@ -165,6 +196,7 @@ const Home = () => {
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />
           </div>
+          <button className="bg-blue-600 p-2" disabled={false} >click me</button>
         </div>
 
         {/* Main content */}

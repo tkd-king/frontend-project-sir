@@ -1,17 +1,28 @@
 "use client"
 
-import React from 'react';
+import React,{useState} from 'react';
 import Image from 'next/image'; // Import the Image component
 import { deleteUniform } from '../../services/api.js';
 
 
 
 const ProductCard = ({ uniform, onEdit, onClick, hide }) => {
+  const [deleting, setDeleteing] = useState(false)
+
   const handleDelete = async () => {
     try {
-      await deleteUniform(uniform._id);
+      setDeleteing(true)
+ const allow = window.confirm("Are you sure you want to delete")
+ if(allow){
+      await deleteUniform(uniform._id)
       window.location.reload(); // Reload the page to reflect the deletion
+      setDeleteing(false)
+ }else{
+  setDeleteing(false)
+  
+ }      
     } catch (error) {
+      setDeleteing(false)
       console.error('Error deleting uniform', error);
     }
   };
@@ -44,12 +55,20 @@ const ProductCard = ({ uniform, onEdit, onClick, hide }) => {
         >
           Edit
         </button>
-        <button 
+        { deleting ?(
+          <button 
+          className= {`bg-red-500/80 ${hide} text-white rounded-md hover:bg-red-600/80 cursor-progress tronsform transition-all duration-300 focus:outline-none xl:px-4 xl:py-2 xl:text-md md:text-md sm:text-sm text-[12px] md:px-[5px] md:py-[5px] sm:px-[2px] sm:py-[2px] px-[2px] py-[2px]`}
+        >
+          Deleting...
+        </button>
+        ) : (
+          <button 
           onClick={(e) => { e.stopPropagation(); handleDelete(); }} // Prevent click event from bubbling up
           className= {`bg-red-500 ${hide} text-white rounded-md hover:bg-red-600 focus:outline-none xl:px-4 xl:py-2 xl:text-md md:text-md sm:text-sm text-[12px] md:px-[5px] md:py-[5px] sm:px-[2px] sm:py-[2px] px-[2px] py-[2px]`}
         >
           Delete
         </button>
+        )}
       </div>
     </div>
   );
