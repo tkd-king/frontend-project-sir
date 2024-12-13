@@ -8,6 +8,8 @@ import App from "@/components/molicules/NavBar.jsx";
 import Footer from "@/components/organism/Footer.jsx";
 
 const Home = () => {
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [uniforms, setUniforms] = useState([]);
   const [filteredUniforms, setFilteredUniforms] = useState([]); // Filtered uniforms
   const [filters, setFilters] = useState({
@@ -19,16 +21,19 @@ const Home = () => {
     category:"",
     uniformNumberFormat:"",
   }); // Filter state
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for sidebar visibility
 
   useEffect(() => {
     // Fetch uniforms when component loads
-    async function fetchUniforms() {
+    async function fetchUniforms(page=1) {
       try {
-        const data = await getUniforms();
-        setUniforms(data);
-        setFilteredUniforms(data); // Set initial uniforms to filtered as well
+        setLoading(true)
+        const data = await getUniforms(filters, page);
+        setUniforms(data.uniforms);
+        setFilteredUniforms(data.uniforms); // Set initial uniforms to filtered as well
+        setCurrentPage(data.currentPage)
+        setTotalPages(data.totalPages)
         setTimeout(() => {
           setLoading(false);
         }, 2000);
@@ -38,10 +43,14 @@ const Home = () => {
         setLoading(false);
       }
     }
-    fetchUniforms();
-  }, []);
+    fetchUniforms(currentPage);
+  }, [currentPage, filters]);
 
- 
+  const handlePageChange = (page) => {
+    if (page > 0 && page <= totalPages) {
+      setCurrentPage(page); // Change page
+    }
+  };
 
   // Handle edit
   const handleEdit = (uniform) => {
@@ -196,7 +205,6 @@ const Home = () => {
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />
           </div>
-          <button className="bg-blue-600 p-2" disabled={false} >click me</button>
         </div>
 
         {/* Main content */}
@@ -219,6 +227,24 @@ const Home = () => {
                   </div>
                 ))}
               </div>
+              <button
+                className={`px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none`}
+                disabled={currentPage === 1}
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                Previous
+              </button>
+              <span>
+                Page {currentPage} of {totalPages}
+              </span>
+
+              <button
+                className={`px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none`}
+                disabled={currentPage === totalPages}
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                Next
+              </button>
             </>
           )}
         </div>

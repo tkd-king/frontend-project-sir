@@ -12,7 +12,7 @@ const ProductCard = ({ uniform, onEdit, onClick, hide }) => {
   const handleDelete = async () => {
     try {
       setDeleteing(true)
- const allow = window.confirm("Are you sure you want to delete")
+ const allow = window.confirm( `Are you sure you want to delete ${uniform.uniformNumberFormat}`)
  if(allow){
       await deleteUniform(uniform._id)
       window.location.reload(); // Reload the page to reflect the deletion
@@ -36,7 +36,6 @@ const ProductCard = ({ uniform, onEdit, onClick, hide }) => {
         <Image 
           src={uniform.imageUrl} 
           alt={uniform.company} 
-          layout="responsive" // Use layout responsive
           width={500} // Set width for the image
           height={200} // Set height for the image
           className="rounded-md object-cover scale-100 hover:scale-105 transition-all"

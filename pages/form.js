@@ -98,7 +98,7 @@ const FormSection = ({ selectedUniform }) => {
       setPopupMessage("Error submitting form!",error);
       console.error("Error submitting form", error);
     } finally {
-      setErrors(false);
+      // setErrors(true);
       setSubmiting(false);
     }
   };

@@ -1,11 +1,12 @@
 // pages/product/[id].js
 import NavBar from "@/components/molicules/NavBar.jsx";
+import Image from "next/image";
 import Footer from "@/components/organism/Footer";
 import { findOneUniform } from "@/services/api";
 import "../../app/globals.css";
 export default function ProductDetail({ product }) {
-  console.log(product,":)");
-  
+  console.log(product, ":)");
+
   return (
     <div>
       <NavBar />
@@ -13,7 +14,9 @@ export default function ProductDetail({ product }) {
         <div className="flex flex-col lg:flex-row items-start">
           {/* Product Image */}
           <div className="w-full lg:w-1/2 mb-6 lg:mb-0">
-            <img
+            <Image
+              width={700}
+              height={700}
               src={product.imageUrl}
               alt={product.name}
               className="w-full rounded-lg shadow-lg"

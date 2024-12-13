@@ -2,9 +2,14 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:4100/api/v1';
 
-export const getUniforms = async () => {
+ const getUniforms = async ( filters, page ) => {
   try {
-    const response = await axios.get(`${API_URL}/uniforms/find-uniform`);
+    const query = new URLSearchParams({
+      ...filters, // Spread the filter object into query params
+      page: page,
+      limit: 10, // Define your pagination limit here
+    });
+    const response = await axios.get(`${API_URL}/uniforms/find-uniform?${query.toString()}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching uniforms api.js', error);
@@ -12,7 +17,7 @@ export const getUniforms = async () => {
   }
 };
 
-export const findOneUniform = async(id) => {
+ const findOneUniform = async(id) => {
   try {
     const response = await axios.get(`${API_URL}/uniforms/find-one/${id}`);
     return response.data;
@@ -21,7 +26,7 @@ export const findOneUniform = async(id) => {
     throw error;
   }
 }
-export const addUniform = async (uniformData) => {
+ const addUniform = async (uniformData) => {
   try {
     const response = await axios.post(`${API_URL}/uniforms/post-uniform`, uniformData);
     console.log("added product::",response.data);
@@ -32,7 +37,7 @@ export const addUniform = async (uniformData) => {
   }
 };
 
-export const updateUniform = async (id, uniformData) => {
+ const updateUniform = async (id, uniformData) => {
   try {
     const response = await axios.put(`${API_URL}/uniforms/update-one/${id}`, uniformData);
     console.log(uniformData);
@@ -44,7 +49,7 @@ export const updateUniform = async (id, uniformData) => {
   }
 };
 
-export const deleteUniform = async (id) => {
+ const deleteUniform = async (id) => {
   try {
     const response = await axios.delete(`${API_URL}/uniforms/delete-uniform/${id}`);
     return response.data;
@@ -53,3 +58,11 @@ export const deleteUniform = async (id) => {
     throw error;
   }
 };
+
+export  {
+  findOneUniform,
+  getUniforms,
+  addUniform,
+  updateUniform,
+  deleteUniform
+}
