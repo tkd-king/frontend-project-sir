@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:4100/api/v1';
+const API_URL = '/api/v1';
 
  const getUniforms = async ( filters, page ) => {
   try {

@@ -1,13 +1,39 @@
 "use client";
-import { useEffect, useState } from "react";
-import { getUniforms } from "../../services/api.js";
+import { useContext, useEffect, useState } from "react";
+import { findOneUniform, getUniforms } from "../../services/api.js";
 import ProductCard from "../organism/productCard.jsx";
 import SkeletonCards from "../atoms/SkeletonCards.jsx";
 import "../../app/globals.css";
-import Link from "next/link.js";
 import { LuRefreshCw } from "react-icons/lu";
+import { UniformContext } from "@/context/UniformContextProvider.jsx";
+import { useRouter } from "next/navigation.js";
 
 const Home = () => {
+  const Router = useRouter()
+ const { setProduct } = useContext(UniformContext) 
+ const [productId, setProductId] = useState("")
+  //  console.log("this is 15 line ..", productId);
+   
+  const fetchOneUniform  = async() => {
+  try {
+   const data = await findOneUniform(productId)
+   setProduct(data.data)
+  //  console.log("fetch uniform 404" ,data.data);
+      Router.push(`/product`)
+    
+  } catch (error) {
+    console.log("unable to fetch uniform", error);
+  }
+  }
+  useEffect(() => {
+   if( productId ) {
+    fetchOneUniform();
+  }
+  }, [productId])
+  
+//   console.log("log here 28 line",productId);
+// console.log("log here 29 line",product.data);
+
   const [letcahnge, setletcahnge] = useState(false);
   const [uniforms, setUniforms] = useState([]);
   const [filteredUniforms, setFilteredUniforms] = useState([]); // Filtered uniforms
@@ -34,7 +60,6 @@ const Home = () => {
       const data = await getUniforms(filters, page);
       setUniforms(data.uniforms);
       console.log("data in fetching func",uniforms);
-      
       setCurrentPage(data.currentPage);
       setTotalPages(data.totalPages);
       setTotalUniformsInFront(data.totalUniforms);
@@ -45,19 +70,7 @@ const Home = () => {
       setLoading(false); // Hide loading state
     }
   };
-  //filter products  here :)
-  // const handleFilter = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const data = await getUniforms(filters); // Fetch all filtered data without pagination
-  //     setFilteredUniforms(data.uniforms); // Set the filtered data state
-  //     navigate("/filtered-results", { state: { uniforms: data.uniforms } }); // Navigate to filtered results page
-  //   } catch (error) {
-  //     console.error("Error applying filter:", error.message);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  
 
   // Fetch uniforms whenever page changes
   const toggleRefresh = async () => {
@@ -109,7 +122,8 @@ const Home = () => {
           uniform.category?.includes(filters.category))
       );
     });
-    console.log(filtered, "from filter func");
+    console.log(filtered.map((data)=> console.log((data.uniformNumberFormat))
+  ), "from filter func");
     setFilteredUniforms(filtered); // Update filtered uniforms
     setLoading(false); // Turn off loading
     console.log("Loading data end.");
@@ -126,7 +140,7 @@ const Home = () => {
     }
   };
    return (
-    <div className="container p-4 flex flex-col md:flex-row ">
+    <div className="container mx-auto p-0 flex flex-col md:flex-row ">
       {/* Button to toggle sidebar on mobile */}
       <button
         onClick={toggleSidebar}
@@ -137,9 +151,9 @@ const Home = () => {
 
       {/* Sidebar Filters */}
       <div
-        className={`w-full md:w-1/4 p-4 bg-gray-200 transition-transform duration-300 ${
+        className={`w-full md:w-1/4 md:rounded-xl md:shadow-xl p-4 bg-gray-200 transition-transform duration-300 ${
           isSidebarOpen ? "block" : "hidden"
-        } xl:block lg:block`}
+        } xl:block lg:block md:block`}
       >
         <div className="flex gap-2 items-center justify-between">
           <h2 className="font-bold mb-4">Filters</h2>
@@ -263,19 +277,24 @@ const Home = () => {
       </div>
 
       {/* Main content */}
-      <div className="w-full md:w-3/4">
+      <div className="w-full">
         {loading ? (
           <SkeletonCards />
         ) : (
           <>
-            <h1 className="text-center">
+            <div className="sahdow-xl rouded-xl bg-red">
+            <h1 className="text-center my-4 ml-[40%] w-[20%] bg-[#f5f5f5] shadow-inner shadow-xl rounded-xl p-4 ">
               Total: ({filteredUniforms.length}) of ({totalUniformsInFront}){" "}
             </h1>
-            <div className="grid grid-cols-4 gap-2">
+            </div>
+            <div className=" xl:grid xl:grid-cols-4 xl:gap-2 xl:ml-4 lg:grid lg:grid-cols-4 lg:gap-4 lg:ml-4 md:grid md:grid-cols-3 md:gap-4 md:ml-4   sm:grid sm:grid-cols-2 sm:gap-[20px] grid grid-cols-1 gap-[20px]">
               {filteredUniforms.map((uniform) => (
-                <Link key={uniform._id} href={`/product/${uniform._id}`}>
+                <div 
+                key={uniform._id}
+                onClick={() => setProductId(uniform._id)}
+                >
                   <ProductCard uniform={uniform} hide={"hidden"} />
-                </Link>
+                </div>
               ))}
             </div>
             {/* Pagination Controls */}

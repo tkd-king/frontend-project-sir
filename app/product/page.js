@@ -1,11 +1,39 @@
-// pages/product/[id].js
+"use client"
 import NavBar from "@/components/molicules/NavBar.jsx";
 import Image from "next/image";
 import Footer from "@/components/organism/Footer";
-import { findOneUniform } from "@/services/api";
+import { UniformContext } from "@/context/UniformContextProvider"
+import { useContext } from "react"
 import "../../app/globals.css";
-export default function ProductDetail({ product }) {
+export default function ProductDetail() {
+  const { product } = useContext(UniformContext)
+
+const handleClick = () => {
+  window.history.back()
+}
+console.log("page is haer",product);
+
+ 
   console.log(product, ":)");
+  if ( product === null || product === undefined ) {
+    return(
+      <div className="flex flex-col items-center justify-center gap-4 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+        <h1 className="text-5xl mb-12"> <span className="font-bolder text-red-800  ">404</span> Not Product Exist! </h1>
+        <button
+        onClick={handleClick}
+        className="px-6 py-3 rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none">
+          Back to Home
+        </button>
+      </div>
+    )
+  }
+  if (!product) {
+    return(
+      <div className="flex items-center justify-center ">
+        <h1 className="text-[50px] w-[40%] text-center p-8 rounded-xl text-gray-400 bg-[#F5F5F5] shadow-xl">Loading...</h1>
+      </div>
+
+  )}
 
   return (
     <div>
@@ -17,7 +45,7 @@ export default function ProductDetail({ product }) {
             <Image
               width={700}
               height={700}
-              src={product.imageUrl}
+              src={product.imageUrl || `https://res.cloudinary.com/drcuzf46e/image/upload/v1730362263/uniforms/skb52wqag8slx4yuwfnx.png`}
               alt={product.name}
               className="w-full rounded-lg shadow-lg"
             />
@@ -62,25 +90,4 @@ export default function ProductDetail({ product }) {
   );
 }
 
-// getServerSideProps for server-side fetching
-export async function getServerSideProps(context) {
-  const { id } = context.params;
 
-  try {
-    // API call or database fetching
-    const res = await findOneUniform(id); // Replace with actual API endpoint
-    const product = res.data;
-
-    // Return the product as a prop
-    return {
-      props: {
-        product,
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching product:", error);
-    return {
-      notFound: true,
-    };
-  }
-}

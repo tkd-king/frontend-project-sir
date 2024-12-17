@@ -12,7 +12,7 @@ const ProductCard = ({ uniform, onEdit, onClick, hide }) => {
   const handleDelete = async () => {
     try {
       setDeleteing(true)
- const allow = window.confirm( `Are you sure you want to delete ${uniform.uniformNumberFormat}`)
+ const allow = window.confirm( `Are you sure you want to delete (${uniform.uniformNumberFormat})`)
  if(allow){
       await deleteUniform(uniform._id)
       window.location.reload(); // Reload the page to reflect the deletion
@@ -26,11 +26,9 @@ const ProductCard = ({ uniform, onEdit, onClick, hide }) => {
       console.error('Error deleting uniform', error);
     }
   };
-  const handleClick = () => onClick(uniform.imageUrl);
 
   return (
     <div className="bg-white shadow-md rounded-lg p-[5px]  flex-shrink-0"
-     onClick={handleClick} // Pass the image URL on click
     >
       <div className="h-48 w-full overflow-hidden cursor-pointer "> {/* Add cursor pointer */}
         <Image 
