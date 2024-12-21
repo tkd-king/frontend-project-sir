@@ -3,6 +3,8 @@ import { useState } from "react";
 import NavBar from "@/components/molicules/NavBar.jsx";
 import Footer from "@/components/organism/Footer.jsx";
 import "@/app/globals.css"
+import { UniformContextProvider } from "@/context/UniformContextProvider";
+import RoutedPath from "@/components/atoms/RoutedPath";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
@@ -45,7 +47,9 @@ const Login = () => {
 
   return (
     <>
+  <UniformContextProvider>
       <NavBar />
+  <RoutedPath page={`Log in`} />
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
         <h1 className="text-2xl font-bold mb-4">Login</h1>
         <form onSubmit={handleLoginSubmit} className="bg-white shadow-md rounded-lg p-6 mb-4 w-full max-w-md">
@@ -76,6 +80,7 @@ const Login = () => {
         {successMessage && <div className="text-green-500 mt-4">{successMessage}</div>}
       </div>
       <Footer />
+    </UniformContextProvider>
     </>
   );
 };

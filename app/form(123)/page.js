@@ -1,9 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
-import { addUniform, updateUniform } from "../services/api";
-import "../app/globals.css";
-import NavBar from "../components/molicules/NavBar";
+import { addUniform, updateUniform } from "@/services/api";
+import "../globals.css";
+import NavBar from "@/components/molicules/NavBar";
 import Footer from "@/components/organism/Footer";
+import { UniformContextProvider } from "@/context/UniformContextProvider";
+import RoutedPath from "@/components/atoms/RoutedPath";
 // import { useRouter } from "next/router";
 
 const FormSection = ({ selectedUniform }) => {
@@ -125,7 +127,9 @@ const FormSection = ({ selectedUniform }) => {
   };
   return (
     <>
-      <NavBar />
+    <UniformContextProvider>
+        <NavBar />
+        <RoutedPath page={`Form`}/>
       {popupMessage ? (
         <div className="flex flex-col items-center jusitify-center my-[100px] gap-2">
         <h1
@@ -380,6 +384,7 @@ const FormSection = ({ selectedUniform }) => {
         </div>
       )}
       <Footer />
+      </UniformContextProvider>
     </>
   );
 };

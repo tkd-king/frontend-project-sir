@@ -15,6 +15,11 @@ export default {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      screens: {
+        'xs': '320px', // 320px breakpoint
+        'sm-xs': '375px', // 375px breakpoint
+        'sm-md': '425px', // 425px breakpoint
+      },
     },
   },
 

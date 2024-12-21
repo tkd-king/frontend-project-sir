@@ -1,32 +1,20 @@
 "use client"
-import React from "react";
+import React, { useContext } from "react";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Link, Button} from "@nextui-org/react";
+import { UniformContext } from "@/context/UniformContextProvider";
 // import {AcmeLogo} from "./AcmeLogo.jsx";
 
 export default function App() {
+      const { showWhatsApp } = useContext(UniformContext)
+      console.log(showWhatsApp);
+      
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-  const menuItems = [
-   {
-    name:"Home",
-    slug:"/",
-   },
-   {
-    name:"Form Page",
-    slug:"/form",
-   },
-   {
-    name:"contact us",
-    slug:"/contact",
-   },
-   {
-    name:"about us",
-    slug:"/about",
-   },
-  ];
+ 
+
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen}>
+    <Navbar className="rounded-b-[30px] shadow-md" onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -36,50 +24,26 @@ export default function App() {
           <p className="font-bold text-inherit">Taekwondo<span className="text-red-500">zone</span></p>
         </NavbarBrand>
       </NavbarContent>
-
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Features
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link href="/" aria-current="page">
-            Products
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="/form">
-            Form page
-          </Link>
-        </NavbarItem>
-      </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Link href="/login/login">Login</Link>
+          <Link href="/login">Login</Link>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="/signup/signup" variant="flat">
+          <Button as={Link} color="primary" href="/signup" variant="flat">
             Sign Up
           </Button>
         </NavbarItem>
       </NavbarContent>
-      <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={
-                index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
-              }
-              className="w-full "
-              href={item.slug}
-              size="lg"
-            >
-              {item.name}
-            </Link>
-          </NavbarMenuItem>
-        ))}
-      </NavbarMenu>
+      
+      {showWhatsApp && (
+      <div className="watsapp-image absolute xl:w-[12%] xl:top-[520px] xl:right-[-150px] lg:w-[10%] lg:top-[520px] lg:right-[-150px] md:w-[15%] md:top-[520px] sm:w-[15%] sm:top-[500px] w-[20%] top-[500px] right-2 scale-[0.9] hover:scale-[1] transition-all duraiton-300 fixed">
+      <a
+        href="https://api.whatsapp.com/send/?phone=923099414135&text=Hi%2C+I+need+help%21&type=phone_number&app_absent=0"
+      >
+        <img src="/images/wattsapp image.webp" alt="WhatsApp image" />
+      </a>
+    </div>
+      )}
     </Navbar>
   );
 }

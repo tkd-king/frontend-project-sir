@@ -3,10 +3,11 @@
 import React,{useState} from 'react';
 import Image from 'next/image'; // Import the Image component
 import { deleteUniform } from '../../services/api.js';
+import { calculatePrice } from '@/utils/priceCalculator.js';
 
 
 
-const ProductCard = ({ uniform, onEdit, onClick, hide }) => {
+const ProductCard = ({ uniform, onEdit, hide, }) => {
   const [deleting, setDeleteing] = useState(false)
 
   const handleDelete = async () => {
@@ -28,9 +29,9 @@ const ProductCard = ({ uniform, onEdit, onClick, hide }) => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-[5px]  flex-shrink-0"
+    <div className="bg-white shadow-md rounded-lg p-[5px] relative flex-shrink-0"
     >
-      <div className="h-48 w-full overflow-hidden cursor-pointer "> {/* Add cursor pointer */}
+      <div className="h-48 w-full overflow-hidden cursor-pointer  "> {/* Add cursor pointer */}
         <Image 
           src={uniform.imageUrl} 
           alt={uniform.company} 
@@ -40,11 +41,12 @@ const ProductCard = ({ uniform, onEdit, onClick, hide }) => {
           priority={false} // Use false for lazy loading, true if it's crucial
         />
       </div>
-      
       <h2 className=" font-semibold xl:mt-4 xl:text-xl md:mt-[2px] md:text-md">{uniform.company}</h2>
       <p className="text-gray-600">Size: {uniform.size}cm</p>
       <p className="text-gray-600">Category: {uniform.category}</p>
       <p className="text-gray-600">Product no. {uniform.uniformNumberFormat}</p>
+      <span className='text-sm text-red-500 flex items-center justify-center pt-2 xl:absolute xl:bottom-2 xl:right-2 sm:pt-2 text-center  font-bolder z-10'>Rs.{calculatePrice(uniform)}/_</span>
+
       <div className="mt-2 flex space-x-2">
         <button 
           onClick={(e) => { e.stopPropagation(); onEdit(uniform); }} // Prevent click event from bubbling up

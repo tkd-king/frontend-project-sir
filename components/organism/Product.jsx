@@ -16,13 +16,14 @@ const Home = () => {
    
   const fetchOneUniform  = async() => {
   try {
+    Router.push(`/product`)
    const data = await findOneUniform(productId)
    setProduct(data.data)
   //  console.log("fetch uniform 404" ,data.data);
-      Router.push(`/product`)
     
   } catch (error) {
     console.log("unable to fetch uniform", error);
+    Router.push(`/`)
   }
   }
   useEffect(() => {
@@ -128,6 +129,7 @@ const Home = () => {
     setLoading(false); // Turn off loading
     console.log("Loading data end.");
     toggleRefresh()
+    setIsSidebarOpen(!isSidebarOpen)
   };
 
   // Toggle sidebar visibility
@@ -151,7 +153,7 @@ const Home = () => {
 
       {/* Sidebar Filters */}
       <div
-        className={`w-full md:w-1/4 md:rounded-xl md:shadow-xl p-4 bg-gray-200 transition-transform duration-300 ${
+        className={`w-full h-[730px] mt-8 md:w-1/4 md:rounded-xl md:shadow-xl p-4 bg-gray-200 transition-transform duration-300 ${
           isSidebarOpen ? "block" : "hidden"
         } xl:block lg:block md:block`}
       >
@@ -281,13 +283,13 @@ const Home = () => {
         {loading ? (
           <SkeletonCards />
         ) : (
-          <>
-            <div className="sahdow-xl rouded-xl bg-red">
-            <h1 className="text-center my-4 ml-[40%] w-[20%] bg-[#f5f5f5] shadow-inner shadow-xl rounded-xl p-4 ">
+          <div>
+            <div className="sahdow-xl rouded-xl flex flex-cols items-center justify-center">
+            <h1 className="text-center my-4 xl:w-[20%] lg:w-[25%] md:w-[28%] sm:w-[30%] w-[35   %] bg-[#f5f5f5] shadow-xl rounded-xl p-4 ">
               Total: ({filteredUniforms.length}) of ({totalUniformsInFront}){" "}
             </h1>
             </div>
-            <div className=" xl:grid xl:grid-cols-4 xl:gap-2 xl:ml-4 lg:grid lg:grid-cols-4 lg:gap-4 lg:ml-4 md:grid md:grid-cols-3 md:gap-4 md:ml-4   sm:grid sm:grid-cols-2 sm:gap-[20px] grid grid-cols-1 gap-[20px]">
+            <div className="px-[10px] xl:grid xl:grid-cols-4 xl:gap-2 xl:ml-4 lg:grid lg:grid-cols-4 lg:gap-4 lg:ml-4 md:grid md:grid-cols-4 md:gap-4 md:ml-4 sm:grid sm:grid-cols-3 sm:gap-[20px] grid grid-cols-2 gap-[20px]">
               {filteredUniforms.map((uniform) => (
                 <div 
                 key={uniform._id}
@@ -319,7 +321,7 @@ const Home = () => {
               <span className={`${hiddenWord}`}>...</span>
               </button>
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>

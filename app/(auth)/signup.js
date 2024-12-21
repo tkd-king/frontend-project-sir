@@ -3,6 +3,8 @@ import { useState } from "react";
 import NavBar from "@/components/molicules/NavBar.jsx";
 import Footer from "@/components/organism/Footer.jsx";
 import "@/app/globals.css"
+import { UniformContextProvider } from "@/context/UniformContextProvider";
+import RoutedPath from "@/components/atoms/RoutedPath";
 
 const SignUp = () => {
  
@@ -46,7 +48,9 @@ const SignUp = () => {
 
   return (
     <>
-      <NavBar />
+    <UniformContextProvider> 
+      <RoutedPath page={`Sign up`} />
+           <NavBar />
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
 
         <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
@@ -87,7 +91,9 @@ const SignUp = () => {
         {successMessage && <div className="text-green-500 mt-4">{successMessage}</div>}
       </div>
       <Footer />
+    </UniformContextProvider>
     </>
+
   );
 };
 
