@@ -115,8 +115,9 @@ const FormSection = ({ selectedUniform }) => {
       .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Har word ka pehla letter capitalize aur baqi lowercase karna
       .join(" "); // Words ko wapas ek string mein join karna
   };
+
   const ShortStringUpperCaseLongStringCapitalyze = (str) => {
-    if ( str.length == 3 || str.length == 4 || str.length == 2 ) {
+    if ( str.length == 3 || str.length == 4 || str.length == 2 || str.length == 5 ) {
       return str.toUpperCase()
     }else{
       return str
@@ -181,7 +182,7 @@ const FormSection = ({ selectedUniform }) => {
                   placeholder="Compony Name..."
                   name="company"
                   id="company"
-                  value={ShortStringUpperCaseLongStringCapitalyze(formData.company)}
+                  value={formData.company.toLocaleLowerCase()}
                   onChange={handleChange}
                   disabled={submiting}
                   required
@@ -242,7 +243,7 @@ const FormSection = ({ selectedUniform }) => {
                   placeholder="Upper Color..."
                   name="upperColor"
                   id="upperColor"
-                  value={capitalize(formData.upperColor) }
+                  value={formData.upperColor.toLocaleLowerCase() }
                   onChange={handleChange}
                   disabled={submiting}
                   required
@@ -259,7 +260,7 @@ const FormSection = ({ selectedUniform }) => {
                   placeholder="Add Trouser Color..."
                   name="trowserColor"
                   id="trowserColor"
-                  value={capitalize(formData.trowserColor)}
+                  value={formData.trowserColor.toLocaleLowerCase()}
                   onChange={handleChange}
                   disabled={submiting}
                   required
@@ -276,7 +277,7 @@ const FormSection = ({ selectedUniform }) => {
                   placeholder="Add Senriority..."
                   name="seneiority"
                   id="seneiority"
-                  value={formData.seneiority}
+                  value={formData.seneiority.toLocaleLowerCase()}
                   onChange={handleChange}
                   disabled={submiting}
                   required
@@ -294,7 +295,7 @@ const FormSection = ({ selectedUniform }) => {
                   name="style"
                   id="style"
                   list="sleeve"
-                  value={formData.style}
+                  value={formData.style.toLocaleLowerCase()}
                   onChange={handleChange}
                   disabled={submiting}
                   required
@@ -316,7 +317,7 @@ const FormSection = ({ selectedUniform }) => {
                   name="neckStyle"
                   list="collar-style"
                   id="neckStyle"
-                  value={capitalize( formData.neckStyle )}
+                  value={formData.neckStyle.toLocaleLowerCase()}
                   onChange={handleChange}
                   disabled={submiting}
                   required
@@ -338,7 +339,7 @@ const FormSection = ({ selectedUniform }) => {
                   name="poomseOrNot"
                   id="poomseOrNot"
                   list="poomseOrNot"
-                  value={capitalize(formData.poomseOrNot)}
+                  value={formData.poomseOrNot.toLocaleLowerCase()}
                   disabled={submiting}
                   onChange={handleChange}
                 />

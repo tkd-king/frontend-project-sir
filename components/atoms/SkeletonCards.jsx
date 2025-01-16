@@ -15,7 +15,7 @@ const cardData = [
 
 export default function SkeletonCards() {
   return (
-    <div className="flex flex-wrap space-x-4 space-y-4 p-4">
+    <div className="skeleton-card xl:grid xl:grid-cols-5 lg:grid lg:grid-cols-3 lg:gap-2 md:grid md:grid-cols-3 md:gap-2 md:grid md:grid-cols-2 md:gap-2 sm:grid sm:grid-cols-2 sm:gap-2 grid grid-cols-2 space-x-2 space-y-2">
       {cardData.map((card) => (
         <Card key={card.id} className="w-[200px] h-[250px] space-y-5 p-4 m-2" radius="lg">
           <Skeleton className="rounded-lg">

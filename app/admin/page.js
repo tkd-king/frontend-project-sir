@@ -46,6 +46,8 @@ const Home = () => {
     fetchUniforms(currentPage);
   }, [currentPage, filters]);
 
+  
+
   const handlePageChange = (page) => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page); // Change page

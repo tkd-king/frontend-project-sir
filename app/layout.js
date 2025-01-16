@@ -6,8 +6,8 @@ import { UniformContextProvider } from "@/context/UniformContextProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Taekwondozone0",
-  description: "Available taekwondo uniforms here...",
+  title: " Taekwondo-zone Best Gloves and Protective Gears in Pakistan",
+  description: "This taekwondo uniform is made from lightweight, durable fabric, perfect for training and competitions. Available in all sizes, with a free belt included. Ideal for kids, adults, and professionals.",
 };
 
 export default function RootLayout({ children }) {

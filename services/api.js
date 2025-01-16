@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = '/api/v1';
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
  const getUniforms = async ( filters, page ) => {
   try {
@@ -58,11 +58,28 @@ const API_URL = '/api/v1';
     throw error;
   }
 };
+const sellProduct = async (productId) => {
+  try {
+    const response = await axios(`${API_URL}/uniforms/add-sellProduct`,{ body: JSON.stringify({ productId }) }) ;
+    if (!response.ok) {
+      throw new Error("Failed to sell product");
+    }
+
+    console.log("respose this file api.js line::69",response);
+    return response;
+    
+  } catch (error) {
+    console.error("Error in selling product:", error);
+    return { error: error.message };
+  }
+};
+
 
 export  {
   findOneUniform,
   getUniforms,
   addUniform,
   updateUniform,
-  deleteUniform
+  deleteUniform,
+  sellProduct
 }
