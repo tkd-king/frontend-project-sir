@@ -2,8 +2,6 @@
 import { useState, useEffect } from "react";
 import { addUniform, updateUniform } from "@/services/api";
 import "../globals.css";
-import NavBar from "@/components/molicules/NavBar";
-import Footer from "@/components/organism/Footer";
 import { UniformContextProvider } from "@/context/UniformContextProvider";
 import RoutedPath from "@/components/atoms/RoutedPath";
 // import { useRouter } from "next/router";
@@ -35,7 +33,7 @@ const FormSection = ({ selectedUniform }) => {
         category: selectedUniform.category || "A",
         imageUrl:
           selectedUniform.imageUrl ||
-          "https://res.cloudinary.com/drcuzf46e/image/upload/v1726993449/uniforms/fmzdovinimfizfiufqsn.jpg",
+          "image was not saved",
         upperColor: selectedUniform.upperColor || "White",
         trowserColor: selectedUniform.trowserColor || "White",
         seneiority: selectedUniform.seneiority || "Poom",
@@ -129,7 +127,6 @@ const FormSection = ({ selectedUniform }) => {
   return (
     <>
     <UniformContextProvider>
-        <NavBar />
         <RoutedPath page={`Form`}/>
       {popupMessage ? (
         <div className="flex flex-col items-center jusitify-center my-[100px] gap-2">
@@ -384,7 +381,6 @@ const FormSection = ({ selectedUniform }) => {
           </div>
         </div>
       )}
-      <Footer />
       </UniformContextProvider>
     </>
   );

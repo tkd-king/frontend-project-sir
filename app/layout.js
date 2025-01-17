@@ -1,7 +1,9 @@
 import { Inter } from "next/font/google";
 import { NextUIProvider } from '@nextui-org/react'; // Import NextUIProvider
 import "./globals.css";
+import NavBar from "../components/molicules/NavBar"
 import { UniformContextProvider } from "@/context/UniformContextProvider";
+import Footer from "@/components/organism/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +19,9 @@ export default function RootLayout({ children }) {
         
         <UniformContextProvider >
         <NextUIProvider>  {/* Wrap the app with NextUIProvider */}
+          <NavBar />
           {children}
+          <Footer />
         </NextUIProvider>
         </UniformContextProvider>
       </body>

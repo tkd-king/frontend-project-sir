@@ -24,7 +24,9 @@ const Login = () => {
 
 
   const handleLoginSubmit = async (e) => {
+    try {
     e.preventDefault();
+    alert(`useremail is ${loginData.email},"\n user password is ",${loginData.password} `)
     setLoginError("");
     
     // Simple validation
@@ -33,7 +35,7 @@ const Login = () => {
       return;
     }
 
-    try {
+    
       // Simulate a successful login
       setSuccessMessage("Login successful!");
       // Reset form
@@ -48,7 +50,6 @@ const Login = () => {
   return (
     <>
   <UniformContextProvider>
-      <NavBar />
   <RoutedPath page={`Log in`} />
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
         <h1 className="text-2xl font-bold mb-4">Login</h1>
@@ -79,7 +80,6 @@ const Login = () => {
 
         {successMessage && <div className="text-green-500 mt-4">{successMessage}</div>}
       </div>
-      <Footer />
     </UniformContextProvider>
     </>
   );

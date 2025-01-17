@@ -4,8 +4,6 @@ import { getUniforms } from "../../services/api.js";
 import ProductCard from "../../components/organism/productCard.jsx";
 import SkeletonCards from "../../components/atoms/SkeletonCards.jsx";
 import "@/app/globals.css"
-import App from "@/components/molicules/NavBar.jsx";
-import Footer from "@/components/organism/Footer.jsx";
 
 const Home = () => {
   const [totalPages, setTotalPages] = useState(0);
@@ -119,7 +117,6 @@ const Home = () => {
 
   return (
     <>
-    <App />
       <div className="container p-4 flex flex-col md:flex-row ">
         {/* Button to toggle sidebar on mobile helo */}
         <button
@@ -222,7 +219,7 @@ const Home = () => {
               </h1>
 
               {/* Uniforms list */}
-              <div className="grid grid-cols-4 gap-2">
+              <div className="px-[10px] xl:grid xl:grid-cols-4 xl:gap-2 xl:ml-4 lg:grid lg:grid-cols-4 lg:gap-4 lg:ml-4 md:grid md:grid-cols-4 md:gap-4 md:ml-4 sm:grid sm:grid-cols-3 sm:gap-[20px] grid grid-cols-2 gap-[20px]">
                 {filteredUniforms.map((uniform) => (
                   <div key={uniform._id}>
                     <ProductCard uniform={uniform} onEdit={handleEdit} hide={"block"} />
@@ -251,7 +248,6 @@ const Home = () => {
           )}
         </div>
       </div>
-  <Footer />
 
     </>
   );

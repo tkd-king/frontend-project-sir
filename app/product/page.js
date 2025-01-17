@@ -1,7 +1,5 @@
 "use client";
-import NavBar from "@/components/molicules/NavBar.jsx";
 import Image from "next/image";
-import Footer from "@/components/organism/Footer";
 import { UniformContext } from "@/context/UniformContextProvider";
 import { useContext } from "react";
 import "../../app/globals.css";
@@ -46,7 +44,6 @@ export default function ProductDetail() {
 
   return (
     <div>
-      <NavBar />
       <RoutedPath page={`Product Detail`} />
       <main className="container mx-auto my-10 px-4">
         <div className="flex flex-col lg:flex-row items-start">
@@ -132,7 +129,6 @@ export default function ProductDetail() {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }
