@@ -38,7 +38,7 @@ export default function App() {
       {showWhatsApp && (
       <div className="watsapp-image absolute xl:w-[12%] xl:top-[520px] xl:right-[-150px] lg:w-[10%] lg:top-[520px] lg:right-[-150px] md:w-[15%] md:top-[520px] sm:w-[15%] sm:top-[500px] w-[20%] top-[500px] right-2 scale-[0.9] hover:scale-[1] transition-all duraiton-300 fixed">
       <a
-        href="https://api.whatsapp.com/send/?phone=923099414135&text=Hi%2C+I+need+help%21&type=phone_number&app_absent=0"
+        href="https://api.whatsapp.com/send/?phone=923164288921&text=Hi%2C+I+need+help%21&type=phone_number&app_absent=0"
       >
         <img src="/images/wattsapp image.webp" alt="WhatsApp image" />
       </a>
